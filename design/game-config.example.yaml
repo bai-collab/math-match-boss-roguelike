@@ -1,0 +1,106 @@
+# Math Match Boss Roguelike — machine-readable example (PROPOSED DEFAULTS; NOT BALANCED)
+# This is a specification example, not runtime code.
+version: 1
+status: proposed_not_implemented
+locale: zh-TW
+product:
+  web_first: true
+  offline_core: true
+  intended_audience: general_primary_math_learners # do not infer a fixed grade
+
+board:
+  rows: 6
+  cols: 6
+  tile_values: [1, 2, 3, 4, 5, 6, 7, 8, 9]
+  tile_colors: [red, blue, green]
+  effect_by_color:
+    red: attack
+    blue: defense
+    green: heal
+  adjacency: orthogonal
+  min_chain: 3
+  max_chain: 6
+  same_color_required: true
+  reused_coordinate_allowed: false
+  auto_cascade_damage: false
+  require_red_exact_solution_at_start_and_after_each_refill: true
+  board_generation_attempt_limit: 100
+  fallback: deterministic_inject_solution
+
+math:
+  operation: sum
+  base_power_per_tile:
+    red: 2
+    blue: 2
+    green: 2
+  weakness_multiplier_numerator:
+    exact: 300
+    difference_one: 125
+    other: 100
+  weakness_multiplier_denominator: 100
+  length_bonus_per_extra_tile_numerator: 25
+  length_bonus_cap_extra_tiles: 3
+  length_bonus_denominator: 100
+  rounding: floor_once_at_end
+  legacy_sum_ten_burst:
+    enabled: false
+    note: original idea superseded by variable monster weakness
+
+battle:
+  mode: turn_based
+  valid_actions_per_player_turn: 2
+  max_shield_policy: max_hp
+  heal_cap: max_hp
+  invalid_path_costs_action: false
+  boss_phase_requires_red_exact_match: true
+  boss_locked_phase_min_hp: 1
+  telegraph_enemy_intent: true
+
+map:
+  floors: 10
+  columns: 5
+  start_floor_nodes_min: 2
+  start_floor_nodes_max: 4
+  ordinary_floor_nodes_min: 2
+  ordinary_floor_nodes_max: 5
+  boss_floor: 9
+  seeded: true
+  types:
+    monster: 43
+    camp: 17
+    shop: 14
+    elite: 12
+    event: 9
+    math_trial: 5
+  global_presence_guarantees:
+    - {type: camp, floor_min: 2, floor_max: 4}
+    - {type: shop, floor_min: 3, floor_max: 5}
+    - {type: elite, floor_min: 4, floor_max: 6}
+
+meta:
+  currency_name: 晶片
+  costs_per_tier: [40, 80, 140]
+  max_level: 3
+  lines: [survival, wisdom, technique, exploration]
+  upgrades_apply_from_next_run: true
+  boss_math_gate_cannot_be_bypassed: true
+
+assets:
+  art_style: pixel_art
+  monster_master_size: [64, 64]
+  character_size: [32, 32]
+  scaling: nearest_neighbor_integer
+  boss_actions: [idle, attack, hurt, death]
+
+audio:
+  engine: WebAudio
+  externally_hosted_music_required: false
+  original_compositions_only: true
+  unlock_on_user_gesture: true
+  independent_music_sfx_controls: true
+
+analytics:
+  enabled_by_default: false
+  identifiable_student_data_required: false
+  store_locally_by_default: true
+  handwired_adapter: optional_future

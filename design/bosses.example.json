@@ -1,0 +1,39 @@
+{
+  "schemaVersion": 1,
+  "status": "proposal_not_balanced",
+  "enemies": [
+    {
+      "id": "slime",
+      "kind": "normal",
+      "displayName": "史萊姆",
+      "weakness": {"targets": [8], "minChain": 3, "mode": "sum_equals"},
+      "notes": "入門：三珠或更長加總為8；HP/攻擊依平衡表補上"
+    },
+    {
+      "id": "goblin",
+      "kind": "normal",
+      "displayName": "哥布林戰士",
+      "weakness": {"targets": [17], "minChain": 3, "mode": "sum_equals"},
+      "notes": "引導玩家比較三消與四消的可行路徑"
+    },
+    {
+      "id": "iron_guard",
+      "kind": "elite",
+      "displayName": "鐵甲守衛",
+      "weakness": {"targets": [18], "minChain": 4, "mode": "sum_equals"},
+      "notes": "必須有至少四珠的紅珠精確路徑方能破甲"
+    },
+    {
+      "id": "number_dragon",
+      "kind": "boss",
+      "displayName": "數字魔龍",
+      "phaseTransition": "red_exact_path_breaks_seal_then_hp_zero_advances",
+      "phases": [
+        {"phase": 1, "hp": 30, "attackIntent": 5, "weakness": {"targets": [12], "minChain": 3}},
+        {"phase": 2, "hp": 45, "attackIntent": 7, "weakness": {"targets": [18], "minChain": 4}},
+        {"phase": 3, "hp": 60, "attackIntent": 9, "weakness": {"targets": [25], "minChain": 3}}
+      ],
+      "notes": "所有數值僅為原型測試參數；每階鎖血不低於1直到破封印"
+    }
+  ]
+}
